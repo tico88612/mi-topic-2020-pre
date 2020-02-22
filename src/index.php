@@ -10,13 +10,7 @@ include_once('head.php');
     </p>
     
 
-    <script>
-    Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success'
-    );
-    </script>
+    
 
 <?php
 include_once('footer.php');
