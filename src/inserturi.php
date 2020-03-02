@@ -37,22 +37,28 @@
         );
         curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
         //等待時間
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         // 設定referer
         curl_setopt($ch, CURLOPT_REFERER, 'https://www.google.com');
-        curl_setopt($ch, CURLOPT_URL, $URI);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
         $result = curl_exec($ch);
+        $result = mb_convert_encoding($result, "UTF-8");
         curl_close($ch);
-        return $result;
+        if (preg_match('/<title>(.*?)<\/title>/is',$result,$found)) {
+            $title = $found[1];
+        }
+        return array($title, $result);
     }
     function goInDatabase($URI, $dbh){
         try {
-            $sql = "INSERT INTO `web`(`webURI`, `webContext`) VALUES (?, ?)";
+            $sql = "INSERT INTO `web`(`webTitle`, `webURI`, `webContext`) VALUES (?, ?, ?)";
             $context = getContext($URI);
             $sth = $dbh->prepare($sql);
-            $sth->execute(array($URI, $context));
+            $sth->execute(array($context[0], $URI, $context[1]));
             //success
             $return = array(true, "Success!");
             return $return;

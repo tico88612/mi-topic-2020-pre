@@ -25,7 +25,7 @@ include_once('head.php');
         Swal.showLoading();
         let s = document.getElementById('inputURi').value;
         let data = {uri: s};
-        let response = fetch(`/test.php`, {
+        let response = fetch(`/inserturi.php`, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers: new Headers({
