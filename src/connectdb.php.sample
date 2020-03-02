@@ -1,5 +1,5 @@
 <?php
-$dsn = 'mysql:dbname=DB_NAME;host=DB_IP;port=DB_PORT';
+$dsn = 'mysql:dbname=DB_NAME;host=DB_IP;port=DB_PORT;charset=utf8mb4';
 $user = DB_USER;
 $password = DB_PASSWORD;
 

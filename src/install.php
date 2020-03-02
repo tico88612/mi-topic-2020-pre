@@ -4,6 +4,7 @@
     $SQL = "DROP TABLE IF EXISTS `web`;
     CREATE TABLE IF NOT EXISTS `web` (
     `webID` int(11) NOT NULL,
+    `webTitle` varchar(2000) NOT NULL,
     `webURI` varchar(2083) NOT NULL,
     `webContext` longtext NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
