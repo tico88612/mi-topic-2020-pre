@@ -46,8 +46,14 @@
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
         $result = curl_exec($ch);
-        $result = mb_convert_encoding($result, "UTF-8");
+        mb_detect_order('BIG5,ASCII,GBK,GB2312');
+        $encoding = mb_detect_encoding($result, "BIG5,ASCII,GBK,GB2312", true);
+        $result = mb_convert_encoding($result, "UTF-8", $encoding);
         curl_close($ch);
+        // print_r(mb_detect_order());
+
+        // print_r($result);
+
         if (preg_match('/<title>(.*?)<\/title>/is',$result,$found)) {
             $title = $found[1];
         }
