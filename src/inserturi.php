@@ -1,6 +1,6 @@
 <?php
-    ini_set('display_errors','1');
-    error_reporting(E_ALL);
+    //ini_set('display_errors','1');
+    //error_reporting(E_ALL);
     include_once('connectdb.php');
     function getURI(){
         $request = json_decode(file_get_contents('php://input'), true);
@@ -33,9 +33,12 @@
         $request_headers = array(
             "Cache-Control: no-cache",
             "Pragma: no-cache",
-            "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36"
+            "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36",
+            "Accept-Encoding: gzip, deflate"
         );
         curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+        //curl_setopt($ch, CURLOPT_HTTPHEADER,array('Accept-Encoding: gzip, deflate'));
+        curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
         //等待時間
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -47,12 +50,12 @@
 
         $result = curl_exec($ch);
         mb_detect_order('BIG5,ASCII,GBK,GB2312');
-        $encoding = mb_detect_encoding($result, "BIG5,ASCII,GBK,GB2312", true);
-        $result = mb_convert_encoding($result, "UTF-8", $encoding);
+        //$encoding = mb_detect_encoding($result, "BIG5,ASCII,GBK,GB2312", true);
+        $result = mb_convert_encoding($result, "UTF-8");
         curl_close($ch);
         // print_r(mb_detect_order());
 
-        // print_r($result);
+         //print_r($result);
 
         if (preg_match('/<title>(.*?)<\/title>/is',$result,$found)) {
             $title = $found[1];

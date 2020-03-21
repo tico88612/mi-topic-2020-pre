@@ -48,7 +48,7 @@ include_once('head.php');
             console.log(responseJson);
             if(responseJson["HTTP_STATUS_CODE"] == 200){
                 Swal.fire(
-                'Oh Geez!',
+                '成功！',
                 'Your URL has been added.',
                 'success'
                 );
