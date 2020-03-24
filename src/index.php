@@ -17,6 +17,13 @@ include_once('head.php');
         </div>
     </div>
 </form>
+<style>
+    ::placeholder {
+        color: gray;
+        opacity: 0.5;
+        /* Firefox */
+    }
+</style>
 <script>
     function submitForm() {
         var str = document.getElementById('query').value;

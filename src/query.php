@@ -12,8 +12,8 @@ function queryDB($query, $dbh)
     return $rows;
 }
 
-if (!isset($_GET['query'])) {
-    header("Refresh: 0;url=/");
+if (!isset($_GET['query']) || trim($_GET['query']) == '') {
+    header("Refresh: 0; url=/");
     die();
 }
 
@@ -52,6 +52,13 @@ $queryLength = count($queryResult);
         }
     }
 </script>
+<style>
+    ::placeholder {
+        color: gray;
+        opacity: 0.5;
+        /* Firefox */
+    }
+</style>
 
 <p class="help">有 <?php echo $queryLength; ?> 項結果</p>
 
