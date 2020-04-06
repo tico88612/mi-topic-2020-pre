@@ -25,7 +25,7 @@
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="/">
-        首頁
+        搜尋
       </a>
       <a class="navbar-item" href="/insert.php">
         新增
